@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rushtowin/components/first_page/login/login.dart';
 import 'package:rushtowin/components/profile/profile.dart';
+import 'package:rushtowin/components/wallet/wallet.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -134,7 +135,7 @@ class _SettingsFormState extends State<Settings> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => const Login(),
+                                    builder: (context) => const Wallet(),
                                   ),
                                 );
                               },
