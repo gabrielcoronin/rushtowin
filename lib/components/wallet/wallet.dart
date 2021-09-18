@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rushtowin/components/settings/settings.dart';
+import 'package:rushtowin/components/recharge/recharge.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({Key? key}) : super(key: key);
@@ -66,7 +66,7 @@ class _WalletFormState extends State<Wallet> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const Settings(),
+                                builder: (context) => const Recharge(),
                               ),
                             );
                           },
