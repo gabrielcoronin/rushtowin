@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/payment/payment.dart';
 import 'package:rushtowin/components/recharge/recharge.dart';
 import 'package:rushtowin/components/settings/settings.dart';
 import 'package:rushtowin/components/wallet/wallet.dart';
@@ -488,7 +489,7 @@ class _HomeFormState extends State<Home> {
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => const Recharge(),
+                                      builder: (context) => const Payment(),
                                     ),
                                   );
                                 },
