@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rushtowin/components/first_page/login/login.dart';
 import 'package:rushtowin/components/first_page/register/register.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Dashboard extends StatelessWidget {
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

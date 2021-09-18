@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rushtowin/components/first_page/home/home.dart';
-import 'package:rushtowin/components/settings/settings.dart';
+import 'package:rushtowin/components/home/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -86,7 +85,7 @@ class _ContactFormState extends State<Login> {
                       Navigator.pop(context);
                       Navigator.push(context,
                         MaterialPageRoute(
-                          builder: (context) => const Settings(),
+                          builder: (context) => const Home(),
                         ),
                       );
                     },

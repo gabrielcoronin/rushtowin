@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rushtowin/components/first_page/home/home.dart';
+import 'package:rushtowin/components/first_page/dashboard/dashboard.dart';
 
 void main() {
   runApp(const RushToWinApp());
@@ -19,7 +19,7 @@ class RushToWinApp extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      home: Home(),
+      home: const Dashboard(),
     );
   }
 }
