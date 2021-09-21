@@ -32,8 +32,8 @@ class _HomeFormState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    HeaderWidget(user: widget.user, wallet: widget.user.wallet),
-                    WalletWidget(fullName: widget.user.fullName, wallet: widget.user.wallet,),
+                    HeaderWidget(user: widget.user),
+                    WalletWidget(user: widget.user,),
                     HistoryWidget(wallet: widget.user.wallet),
                     CardWidget(user: widget.user),
                   ],
