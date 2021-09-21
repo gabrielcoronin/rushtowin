@@ -16,7 +16,7 @@ class Transactions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transactions'),
+        title: const Text('Gastos'),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder<List<Transaction>>(
@@ -41,7 +41,7 @@ class Transactions extends StatelessWidget {
                         child: ListTile(
                           leading: const Icon(Icons.monetization_on),
                           title: Text(
-                            transaction.value.toString(),
+                            "- " + transaction.value.toString(),
                             style: const TextStyle(
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold,
