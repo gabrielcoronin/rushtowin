@@ -30,6 +30,17 @@ class TransactionWebClient {
     throw Exception('Failed to retrieve wallet');
   }
 
+  Future<Transaction> getLastTransaction(String walletId) async {
+    final response = await http.get(
+        Uri.parse('http://192.168.5.185:8080/api/Transactions/lastTransaction/$walletId'));
+
+    if (response.statusCode == 200) {
+      return Transaction.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Failed to retrieve last transaction');
+  }
+
+
   Future<Transaction> recharge(RechargeModel recharge) async {
     final String rechargeJson = jsonEncode(recharge.toJson());
     await Future.delayed(const Duration(seconds: 2));
