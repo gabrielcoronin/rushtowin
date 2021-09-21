@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rushtowin/models/wallet.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/screens/payment/payment.dart';
 import 'package:rushtowin/screens/recharge/recharge.dart';
 import 'package:rushtowin/screens/wallet/wallet.dart';
 
 class CardWidget extends StatelessWidget {
-  final Wallet wallet;
+  final User user;
 
-  const CardWidget({Key? key, required this.wallet}) : super(key: key);
+  const CardWidget({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CardWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Recharge(wallet: wallet),
+                      builder: (context) => Recharge(wallet: user.wallet),
                     ),
                   );
                 },
@@ -75,7 +75,7 @@ class CardWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => WalletScreen(wallet: wallet),
+                      builder: (context) => WalletScreen(wallet: user.wallet),
                     ),
                   );
                 },
@@ -123,7 +123,7 @@ class CardWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Payment(wallet: wallet),
+                      builder: (context) => Payment(user: user),
                     ),
                   );
                 },

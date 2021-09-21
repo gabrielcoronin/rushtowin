@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rushtowin/models/wallet.dart';
-import 'package:rushtowin/screens/wallet/wallet.dart';
-
+import 'package:rushtowin/models/user.dart';
 import 'card_widget.dart';
 import 'header_widget.dart';
 
 class Payment extends StatefulWidget {
-  final Wallet wallet;
-  const Payment({Key? key, required this.wallet}) : super(key: key);
+  final User user;
+  const Payment({Key? key, required this.user}) : super(key: key);
 
   @override
   _PaymentFormState createState() => _PaymentFormState();
@@ -26,7 +24,7 @@ class _PaymentFormState extends State<Payment> {
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           HeaderWidget(),
-          CardWidget(wallet: widget.wallet),
+          CardWidget(user: widget.user),
         ]),
       ),
     );

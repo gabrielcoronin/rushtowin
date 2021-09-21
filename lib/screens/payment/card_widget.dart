@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rushtowin/http/webclients/transaction_webclient.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
-import 'package:rushtowin/screens/wallet/wallet.dart';
+import 'package:rushtowin/screens/home/home.dart';
 
 class CardWidget extends StatelessWidget {
-  final Wallet wallet;
-  const CardWidget({Key? key, required this.wallet}) : super(key: key);
+  final User user;
+
+  CardWidget({Key? key, required this.user}) : super(key: key);
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +26,10 @@ class CardWidget extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
                   onTap: () {
+                    _webClient.bus(user.wallet.id);
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => WalletScreen(wallet: wallet),
+                        builder: (context) => Home(user: user),
                       ),
                     );
                   },
@@ -87,11 +92,8 @@ class CardWidget extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => WalletScreen(wallet: wallet),
-                      ),
-                    );
+                    _webClient.subway(user.wallet.id);
+                    Navigator.of(context).pop();
                   },
                   child: Container(
                     padding: const EdgeInsets.all(40.0),
@@ -152,11 +154,8 @@ class CardWidget extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => WalletScreen(wallet: wallet),
-                      ),
-                    );
+                    _webClient.train(user.wallet.id);
+                    Navigator.of(context).pop();
                   },
                   child: Container(
                     padding: const EdgeInsets.all(40.0),
