@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:rushtowin/components/centered_message.dart';
+import 'package:rushtowin/components/progress.dart';
+import 'package:rushtowin/http/webclients/transaction_webclient.dart';
+import 'package:rushtowin/models/transaction.dart';
 import 'package:rushtowin/models/wallet.dart';
 import 'package:rushtowin/screens/wallet/transactions.dart';
-import 'package:rushtowin/screens/wallet/wallet.dart';
 
 class HistoryWidget extends StatelessWidget {
   final Wallet wallet;
 
-  const HistoryWidget({Key? key, required this.wallet}) : super(key: key);
+  HistoryWidget({Key? key, required this.wallet}) : super(key: key);
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -88,47 +93,48 @@ class HistoryWidget extends StatelessWidget {
                       InkWell(
                         child: SizedBox(
                           height: 50,
-                          width: 130,
+                          width: 320,
                           child: Column(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
-                            children: const <Widget>[
-                              Text(
-                                '20/03/2021',
-                                style: TextStyle(
-                                  color:
-                                  Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 20.0,
-                                ),
-                              )
+                            children: <Widget>[
+                              FutureBuilder<Transaction>(
+                                  future: _webClient.getLastTransaction(wallet.id),
+                                  builder: (context, snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                        break;
+                                      case ConnectionState.waiting:
+                                        return Progress();
+                                      case ConnectionState.active:
+                                        break;
+                                      case ConnectionState.done:
+                                        if (snapshot.hasData) {
+                                          final Transaction? transaction =
+                                              snapshot.data;
+                                          return Text(
+                                            DateFormat().format(transaction!.createdAt).toString(),
+                                            style: const TextStyle(
+                                              color:
+                                              Color.fromRGBO(0, 0, 0, 1),
+                                              fontSize: 20.0,
+                                            ),
+                                          );
+                                        }
+                                    }
+                                    return CenteredMessage(
+                                      'Unknown error',
+                                      icon: Icons.warning,
+                                    );
+                                  }),
+
                             ],
                           ),
                         ),
                       ),
-                      InkWell(
-                        child: SizedBox(
-                          height: 50,
-                          width: 200,
-                          child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.end,
-                            children: const <Widget>[
-                              Text(
-                                'às 11:30',
-                                style: TextStyle(
-                                  color:
-                                  Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 20.0,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+
                     ],
                   ),
                   const Divider(
@@ -154,15 +160,36 @@ class HistoryWidget extends StatelessWidget {
                             MainAxisAlignment.center,
                             crossAxisAlignment:
                             CrossAxisAlignment.center,
-                            children: const <Widget>[
-                              Text(
-                                '- RS 10,00',
-                                style: TextStyle(
-                                  color:
-                                  Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 20.0,
-                                ),
-                              )
+                            children: <Widget>[
+                              FutureBuilder<Transaction>(
+                                  future: _webClient.getLastTransaction(wallet.id),
+                                  builder: (context, snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                        break;
+                                      case ConnectionState.waiting:
+                                        return Progress();
+                                      case ConnectionState.active:
+                                        break;
+                                      case ConnectionState.done:
+                                        if (snapshot.hasData) {
+                                          final Transaction? transaction =
+                                              snapshot.data;                                          ;
+                                          return Text(
+                                            transaction!.value.toString(),
+                                            style: const TextStyle(
+                                              color:
+                                              Color.fromRGBO(0, 0, 0, 1),
+                                              fontSize: 20.0,
+                                            ),
+                                          );
+                                        }
+                                    }
+                                    return CenteredMessage(
+                                      'Unknown error',
+                                      icon: Icons.warning,
+                                    );
+                                  }),
                             ],
                           ),
                         ),

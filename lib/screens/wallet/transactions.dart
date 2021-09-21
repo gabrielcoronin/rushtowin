@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rushtowin/components/centered_message.dart';
 import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
@@ -47,7 +48,7 @@ class Transactions extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            transaction.createdAt.toString(),
+                            DateFormat().format(transaction!.createdAt).toString(),
                             style: const TextStyle(
                               fontSize: 16.0,
                             ),
