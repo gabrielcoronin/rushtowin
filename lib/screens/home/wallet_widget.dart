@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/centered_message.dart';
+import 'package:rushtowin/components/progress.dart';
+import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/wallet.dart';
 
 class WalletWidget extends StatelessWidget {
   final String fullName;
   final Wallet wallet;
 
-  const WalletWidget({Key? key, required this.fullName, required this.wallet}) : super(key: key);
+  WalletWidget({Key? key, required this.fullName, required this.wallet}) : super(key: key);
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -112,14 +116,34 @@ class WalletWidget extends StatelessWidget {
                             crossAxisAlignment:
                             CrossAxisAlignment.end,
                             children: <Widget>[
-                              Text(
-                                wallet.balance.toString(),
-                                style: const TextStyle(
-                                  color:
-                                  Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 20.0,
-                                ),
-                              )
+                              FutureBuilder<Wallet>(
+                                  future: _webClient.getWallet(wallet.id),
+                                  builder: (context, snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                        break;
+                                      case ConnectionState.waiting:
+                                        return Progress();
+                                      case ConnectionState.active:
+                                        break;
+                                      case ConnectionState.done:
+                                        if (snapshot.hasData) {
+                                          final double balance =
+                                              snapshot.data!.balance;
+                                          return Text(
+                                            'R\$ ' + balance.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 24.0,
+                                            ),
+                                          );
+                                        }
+                                    }
+                                    return CenteredMessage(
+                                      'Unknown error',
+                                      icon: Icons.warning,
+                                    );
+                                  })
                             ],
                           ),
                         ),
