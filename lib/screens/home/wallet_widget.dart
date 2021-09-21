@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:rushtowin/components/centered_message.dart';
 import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
 
 class WalletWidget extends StatelessWidget {
-  final String fullName;
-  final Wallet wallet;
+  final User user;
 
-  WalletWidget({Key? key, required this.fullName, required this.wallet}) : super(key: key);
+  WalletWidget({Key? key, required this.user}) : super(key: key);
   final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
@@ -33,15 +33,12 @@ class WalletWidget extends StatelessWidget {
                             height: 100,
                             width: 60,
                             child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: const <Widget>[
                                 Icon(
                                   Icons.account_balance_wallet,
-                                  color: Color.fromRGBO(
-                                      17, 30, 108, 1),
+                                  color: Color.fromRGBO(17, 30, 108, 1),
                                   size: 48.0,
                                 ),
                               ],
@@ -53,16 +50,13 @@ class WalletWidget extends StatelessWidget {
                             height: 100,
                             width: 200,
                             child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: const <Widget>[
                                 Text(
                                   'Carteira',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(
-                                        0, 0, 0, 1),
+                                    color: Color.fromRGBO(0, 0, 0, 1),
                                     fontSize: 20.0,
                                   ),
                                 )
@@ -77,8 +71,7 @@ class WalletWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:
-              const EdgeInsets.fromLTRB(24.0, 0.0, 0.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(24.0, 0.0, 0.0, 16.0),
               child: Material(
                 color: const Color.fromRGBO(0, 0, 0, 0.0),
                 child: Column(children: [
@@ -89,19 +82,16 @@ class WalletWidget extends StatelessWidget {
                           height: 70,
                           width: 200,
                           child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                fullName,
+                                user.fullName,
                                 style: const TextStyle(
-                                  color:
-                                  Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                  fontSize: 24.0,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -111,13 +101,11 @@ class WalletWidget extends StatelessWidget {
                           height: 50,
                           width: 100,
                           child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
                               FutureBuilder<Wallet>(
-                                  future: _webClient.getWallet(wallet.id),
+                                  future: _webClient.getWallet(user.wallet.id),
                                   builder: (context, snapshot) {
                                     switch (snapshot.connectionState) {
                                       case ConnectionState.none:
