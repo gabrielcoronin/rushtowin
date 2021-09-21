@@ -93,7 +93,7 @@ class HistoryWidget extends StatelessWidget {
                       InkWell(
                         child: SizedBox(
                           height: 50,
-                          width: 320,
+                          width: 300,
                           child: Column(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
@@ -119,7 +119,7 @@ class HistoryWidget extends StatelessWidget {
                                             style: const TextStyle(
                                               color:
                                               Color.fromRGBO(0, 0, 0, 1),
-                                              fontSize: 20.0,
+                                              fontSize: 16.0,
                                             ),
                                           );
                                         }
@@ -154,12 +154,12 @@ class HistoryWidget extends StatelessWidget {
                       InkWell(
                         child: SizedBox(
                           height: 50,
-                          width: 130,
+                          width: 300,
                           child: Column(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
                             crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            CrossAxisAlignment.end,
                             children: <Widget>[
                               FutureBuilder<Transaction>(
                                   future: _webClient.getLastTransaction(wallet.id),
@@ -176,11 +176,11 @@ class HistoryWidget extends StatelessWidget {
                                           final Transaction? transaction =
                                               snapshot.data;                                          ;
                                           return Text(
-                                            transaction!.value.toString(),
+                                            "- " + transaction!.value.toString(),
                                             style: const TextStyle(
                                               color:
                                               Color.fromRGBO(0, 0, 0, 1),
-                                              fontSize: 20.0,
+                                              fontSize: 24.0,
                                             ),
                                           );
                                         }
