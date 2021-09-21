@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rushtowin/models/user.dart';
-import 'package:rushtowin/models/wallet.dart';
 import 'package:rushtowin/screens/settings/settings.dart';
 
 class HeaderWidget extends StatelessWidget {
-  final Wallet wallet;
   final User user;
 
-  const HeaderWidget({Key? key, required this.user, required this.wallet}) : super(key: key);
+  const HeaderWidget({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +15,7 @@ class HeaderWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding:
-          const EdgeInsets.fromLTRB(24.0, 48.0, 0.0, 8.0),
+          padding: const EdgeInsets.fromLTRB(24.0, 48.0, 0.0, 8.0),
           child: Material(
             color: const Color.fromRGBO(17, 30, 108, 0),
             child: SizedBox(
@@ -45,8 +42,7 @@ class HeaderWidget extends StatelessWidget {
           child: Material(
             color: const Color.fromRGBO(17, 30, 108, 0),
             child: Container(
-              padding:
-              const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),
               height: 70,
               width: 50,
               child: Column(
@@ -57,7 +53,10 @@ class HeaderWidget extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Settings(wallet: wallet, user: user,),
+                          builder: (context) => Settings(
+                            wallet: user.wallet,
+                            user: user,
+                          ),
                         ),
                       );
                     },
