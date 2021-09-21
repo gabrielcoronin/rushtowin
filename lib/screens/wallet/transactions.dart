@@ -48,7 +48,7 @@ class Transactions extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            DateFormat().format(transaction!.createdAt).toString(),
+                            DateFormat().format(transaction.createdAt).toString(),
                             style: const TextStyle(
                               fontSize: 16.0,
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
 import 'package:rushtowin/screens/settings/logout_widget.dart';
 import 'package:rushtowin/screens/settings/profile_widget.dart';
@@ -6,7 +7,9 @@ import 'package:rushtowin/screens/settings/wallet_widget.dart';
 
 class Settings extends StatefulWidget {
   final Wallet wallet;
-  const Settings({Key? key, required this.wallet}) : super(key: key);
+  final User user;
+
+  const Settings({Key? key, required this.wallet, required this.user}) : super(key: key);
 
   @override
   _SettingsFormState createState() => _SettingsFormState();
@@ -31,7 +34,7 @@ class _SettingsFormState extends State<Settings> {
                     color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
-                        ProfileWidget(),
+                        ProfileWidget(user: widget.user),
                         WalletWidget(wallet: widget.wallet),
                       ],
                     ),

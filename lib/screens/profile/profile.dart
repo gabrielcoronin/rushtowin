@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/centered_message.dart';
+import 'package:rushtowin/components/progress.dart';
+import 'package:rushtowin/http/webclients/user_webclient.dart';
+import 'package:rushtowin/models/update_user.dart';
 import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/user_register.dart';
+import 'package:rushtowin/screens/first_page/dashboard/dashboard.dart';
+import 'package:rushtowin/screens/home/home.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  final User user;
+
+  const Profile({Key? key, required this.user}) : super(key: key);
 
   @override
   _ProfileFormState createState() => _ProfileFormState();
 }
 
 class _ProfileFormState extends State<Profile> {
-  final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _cpfController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final UserWebClient _webClient = UserWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -50,53 +56,121 @@ class _ProfileFormState extends State<Profile> {
                   ),
                 ),
               ),
-              TextField(
-                controller: _fullNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Nome completo',
-                ),
-                style: const TextStyle(
-                  fontSize: 24.0,
-                ),
+              FutureBuilder<User>(
+                  future: _webClient.get(widget.user.id),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        break;
+                      case ConnectionState.waiting:
+                        return Progress();
+                      case ConnectionState.active:
+                        break;
+                      case ConnectionState.done:
+                        if (snapshot.hasData) {
+                          final User? user =
+                              snapshot.data;
+                          return TextField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              labelText: "Nome: " + user!.fullName,
+                            ),
+                            style: const TextStyle(
+                              fontSize: 24.0,
+                            ),
+                          );
+                        }
+                    }
+                    return CenteredMessage(
+                      'Unknown error',
+                      icon: Icons.warning,
+                    );
+                  }),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child:
+                FutureBuilder<User>(
+                    future: _webClient.get(widget.user.id),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          break;
+                        case ConnectionState.waiting:
+                          return Progress();
+                        case ConnectionState.active:
+                          break;
+                        case ConnectionState.done:
+                          if (snapshot.hasData) {
+                            final User? user =
+                                snapshot.data;
+                            return TextField(
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                labelText: "CPF: " + user!.cpf,
+                              ),
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                              ),
+                            );
+                          }
+                      }
+                      return CenteredMessage(
+                        'Unknown error',
+                        icon: Icons.warning,
+                      );
+                    }),
+
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: TextField(
-                  controller: _cpfController,
-                  decoration: const InputDecoration(
-                    labelText: 'CPF',
-                  ),
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+                child:
+                FutureBuilder<User>(
+                    future: _webClient.get(widget.user.id),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          break;
+                        case ConnectionState.waiting:
+                          return Progress();
+                        case ConnectionState.active:
+                          break;
+                        case ConnectionState.done:
+                          if (snapshot.hasData) {
+                            final User? user =
+                                snapshot.data;
+                            return TextField(
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                labelText: user!.email,
+                              ),
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                              ),
+                            );
+                          }
+                      }
+                      return CenteredMessage(
+                        'Unknown error',
+                        icon: Icons.warning,
+                      );
+                    }),
+
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'E-mail',
-                  ),
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: TextField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Senha',
-                  ),
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+                child:
+                            TextField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: "Alterar senha: ",
+                              ),
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                            )
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
@@ -105,12 +179,14 @@ class _ProfileFormState extends State<Profile> {
                   child: ElevatedButton(
                     child: const Text('Atualizar'),
                     onPressed: () {
-                      final String fullName = _fullNameController.text;
-                      final String cpf = _cpfController.text;
-                      final String email = _emailController.text;
                       final String password = _passwordController.text;
-                      final UserRegister newUser = UserRegister(fullName: fullName, cpf: fullName, email: email, password: password);
-                      Navigator.pop(context, newUser);
+                      UpdateUser user = UpdateUser(id: widget.user.id, password: password);
+                      _webClient.update(user);
+                      Navigator.push(context,
+                          MaterialPageRoute(
+                            builder: (context) => const Dashboard(),
+                          )
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
