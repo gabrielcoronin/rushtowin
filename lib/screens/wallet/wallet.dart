@@ -21,9 +21,11 @@ class _WalletFormState extends State<WalletScreen> {
           title: const Text('Carteira'),
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        body: Column(children: <Widget>[
-          BalanceWidget(wallet: widget.wallet),
-          HistoryWidget(wallet: widget.wallet,),
-        ]));
+        body: SingleChildScrollView(
+          child: Column(children: <Widget>[
+            BalanceWidget(wallet: widget.wallet),
+            HistoryWidget(wallet: widget.wallet,),
+          ]),
+        ));
   }
 }
