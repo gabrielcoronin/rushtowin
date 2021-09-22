@@ -25,7 +25,8 @@ class _RegisterFormState extends State<Register> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
-        child: Padding(
+        child:
+        Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
@@ -106,14 +107,16 @@ class _RegisterFormState extends State<Register> {
                   width: double.maxFinite,
                   child: ElevatedButton(
                     child: const Text('Registrar'),
-                    onPressed: () {
+                    onPressed: () async {
                       final String fullName = _fullNameController.text;
                       final String cpf = _cpfController.text;
                       final String email = _emailController.text;
                       final String password = _passwordController.text;
                       final userCreated =
                           UserRegister(fullName: fullName, cpf: cpf, email: email, password: password);
-                          _webClient.save(userCreated);
+
+                          var user = await _webClient.save(userCreated);
+
                       Navigator.push(context,
                           MaterialPageRoute(
                           builder: (context) => const Login(),
