@@ -38,21 +38,16 @@ class TransactionWebClient {
     throw Exception('Failed to retrieve last transaction');
   }
 
-  Future<Transaction> recharge(RechargeModel recharge) async {
+  Future recharge(RechargeModel recharge) async {
     final String rechargeJson = jsonEncode(recharge.toJson());
     await Future.delayed(const Duration(seconds: 2));
 
-    final Response response = await http.post(
+    await http.post(
         Uri.parse('http://192.168.5.185:8080/api/Transactions/recharge'),
         headers: {
           'Content-type': 'application/json',
         },
         body: rechargeJson);
-
-    if (response.statusCode == 200) {
-      return Transaction.fromJson(jsonDecode(response.body));
-    }
-    throw Exception('Failed to load transaction');
   }
 
   Future<Transaction> bus(String walletId) async {
