@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rushtowin/components/message/dashboard.dart';
+import 'package:rushtowin/components/payment_message/dashboard.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/screens/wallet/wallet.dart';

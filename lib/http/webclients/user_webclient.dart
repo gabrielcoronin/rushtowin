@@ -18,6 +18,16 @@ class UserWebClient {
     throw Exception('Falha ao buscar usuário');
   }
 
+  Future<User> getByEmail(String email) async {
+    final response =
+    await http.get(Uri.parse('http://192.168.5.185:8080/api/Users/getByEmail/$email'));
+
+    if (response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('Falha ao buscar usuário');
+  }
+
   Future<User> login(String email, String password) async {
     final response = await http.get(Uri.parse(
         'http://192.168.5.185:8080/api/Users/login/$email/$password'));

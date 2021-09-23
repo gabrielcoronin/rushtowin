@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/register_message/success/success_message.dart';
 import 'package:rushtowin/http/webclients/user_webclient.dart';
 import 'package:rushtowin/models/user_register.dart';
-import 'package:rushtowin/screens/first_page/login/login.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -25,8 +25,7 @@ class _RegisterFormState extends State<Register> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
-        child:
-        Padding(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
@@ -107,22 +106,21 @@ class _RegisterFormState extends State<Register> {
                   width: double.maxFinite,
                   child: ElevatedButton(
                     child: const Text('Registrar'),
-                    onPressed: () async {
+                    onPressed: () {
                       final String fullName = _fullNameController.text;
                       final String cpf = _cpfController.text;
                       final String email = _emailController.text;
                       final String password = _passwordController.text;
-                      final userCreated =
-                          UserRegister(fullName: fullName, cpf: cpf, email: email, password: password);
+                      final userCreated = UserRegister(
+                          fullName: fullName,
+                          cpf: cpf,
+                          email: email,
+                          password: password);
 
-                          var user = await _webClient.save(userCreated);
-
-                      Navigator.push(context,
-                          MaterialPageRoute(
-                          builder: (context) => const Login(),
-                      )
-                      );
-                    },
+                      _webClient.save(userCreated);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                          const SuccessMessage(title: 'Registro feito com sucesso.')));                    },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                     ),
