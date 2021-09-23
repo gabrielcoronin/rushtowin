@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/recharge_model.dart';
-import 'package:rushtowin/models/wallet.dart';
-import 'package:rushtowin/screens/wallet/wallet.dart';
+import 'package:rushtowin/models/user.dart';
+import 'package:rushtowin/screens/home/home.dart';
 
 class Recharge extends StatefulWidget {
-  final Wallet wallet;
+  final User user;
 
-  const Recharge({Key? key, required this.wallet}) : super(key: key);
+  const Recharge({Key? key, required this.user}) : super(key: key);
 
   @override
   _RechargeFormState createState() => _RechargeFormState();
@@ -130,11 +130,10 @@ class _RechargeFormState extends State<Recharge> {
                   onPressed: () async {
                     final String value = _rechargeController.text;
                     final recharge = RechargeModel(
-                        value: double.parse(value), walletId: widget.wallet.id);
+                        value: double.parse(value), walletId: widget.user.wallet.id);
                     var result = await _webClient.recharge(recharge);
-                    result.wallet.balance += widget.wallet.balance;
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WalletScreen(wallet: widget.wallet),
+                      builder: (context) => Home(user: widget.user),
                     ));
                   })
             ]),

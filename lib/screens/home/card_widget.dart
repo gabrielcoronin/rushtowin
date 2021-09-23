@@ -27,7 +27,7 @@ class CardWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Recharge(wallet: user.wallet),
+                      builder: (context) => Recharge(user: user),
                     ),
                   );
                 },
@@ -75,7 +75,7 @@ class CardWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => WalletScreen(wallet: user.wallet),
+                      builder: (context) => WalletScreen(user: user),
                     ),
                   );
                 },

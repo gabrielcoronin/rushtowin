@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rushtowin/models/wallet.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/screens/wallet/wallet.dart';
 
 class WalletWidget extends StatelessWidget {
-  final Wallet wallet;
-  const WalletWidget({Key? key, required this.wallet}) : super(key: key);
+  final User user;
+  const WalletWidget({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class WalletWidget extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => WalletScreen(wallet: wallet),
+                builder: (context) => WalletScreen(user: user),
               ),
             );
           },

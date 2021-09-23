@@ -34,7 +34,7 @@ class _HomeFormState extends State<Home> {
                   children: <Widget>[
                     HeaderWidget(user: widget.user),
                     WalletWidget(user: widget.user,),
-                    HistoryWidget(wallet: widget.user.wallet),
+                    HistoryWidget(user: widget.user),
                     CardWidget(user: widget.user),
                   ],
                 ),

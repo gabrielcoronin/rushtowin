@@ -23,7 +23,7 @@ class _PaymentFormState extends State<Payment> {
       ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
-          HeaderWidget(),
+          const HeaderWidget(),
           CardWidget(user: widget.user),
         ]),
       ),

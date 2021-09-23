@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/message/dashboard.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/user.dart';
-import 'package:rushtowin/models/wallet.dart';
-import 'package:rushtowin/screens/home/home.dart';
 import 'package:rushtowin/screens/wallet/wallet.dart';
 
 class CardWidget extends StatelessWidget {
@@ -48,11 +47,11 @@ class CardWidget extends StatelessWidget {
                               )),
                           TextButton(
                             onPressed: () {
-                              _webClient.bus(user.wallet.id);
-                              Navigator.pop(context, 'Confirmar');
+                              _verifyBalanceBus(context, 5.0);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      WalletScreen(wallet: user.wallet)));
+                                      WalletScreen(user: user)));
+                              Navigator.pop(context, 'Confirmar');
                             },
                             child: const Text(
                               'Confirmar',
@@ -149,12 +148,12 @@ class CardWidget extends StatelessWidget {
                               )),
                           TextButton(
                             onPressed: () {
-                              _webClient.subway(user.wallet.id);
-                              Navigator.pop(context, 'Confirmar');
+                              _verifyBalanceSubway(context, 6.0);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      WalletScreen(wallet: user.wallet)));
-                            },
+                                      WalletScreen(user: user)));
+                              Navigator.pop(context, 'Confirmar');
+                                      },
                             child: const Text(
                               'Confirmar',
                               style: TextStyle(
@@ -250,11 +249,11 @@ class CardWidget extends StatelessWidget {
                               )),
                           TextButton(
                             onPressed: () {
-                              _webClient.train(user.wallet.id);
-                              Navigator.pop(context, 'Confirmar');
+                              _verifyBalanceTrain(context, 7.0);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      WalletScreen(wallet: user.wallet)));
+                                      WalletScreen(user: user)));
+                              Navigator.pop(context, 'Confirmar');
                             },
                             child: const Text(
                               'Confirmar',
@@ -319,5 +318,46 @@ class CardWidget extends StatelessWidget {
         ),
       ),
     ]);
+  }
+
+  Future<dynamic> _verifyBalanceBus(BuildContext context, double value) async {
+    var result = await _webClient.getWallet(user.walletId);
+    user.wallet.balance = result.balance;
+    if (result.balance >= value) {
+      _webClient.bus(user.wallet.id);
+      Navigator.pop(context, 'Confirmar');
+      return Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              Dashboard(user: user, title: 'Pagamento efetuado.')));
+
+    }
+    return Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Dashboard(user: user, title: 'Saldo insuficiente.'),
+    ));
+  }
+
+  Future<dynamic> _verifyBalanceSubway(BuildContext context, double value) async {
+    var result = await _webClient.getWallet(user.walletId);
+    if (result.balance >= value) {
+      _webClient.subway(user.wallet.id);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              WalletScreen(user: user)));
+      return Navigator.pop(context, 'Confirmar');
+
+    }
+    return Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Dashboard(user: user, title: 'Saldo insuficiente.'),
+    ));
+  }
+
+  Future<dynamic> _verifyBalanceTrain(BuildContext context, double value) async {
+    var result = await _webClient.getWallet(user.walletId);
+    if (result.balance >= value) {
+      _webClient.train(user.wallet.id);
+    }
+    return Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Dashboard(user: user, title: 'Saldo insuficiente. '),
+    ));
   }
 }

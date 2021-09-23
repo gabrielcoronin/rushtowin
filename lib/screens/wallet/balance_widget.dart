@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:rushtowin/components/centered_message.dart';
 import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
 import 'package:rushtowin/screens/recharge/recharge.dart';
 
 class BalanceWidget extends StatelessWidget {
-  final Wallet wallet;
-  BalanceWidget({Key? key, required this.wallet}) : super(key: key);
+  final User user;
+  BalanceWidget({Key? key, required this.user}) : super(key: key);
   final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
@@ -42,7 +43,7 @@ class BalanceWidget extends StatelessWidget {
                           ),
                         ),
                         FutureBuilder<Wallet>(
-                            future: _webClient.getWallet(wallet.id),
+                            future: _webClient.getWallet(user.wallet.id),
                             builder: (context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
@@ -83,7 +84,7 @@ class BalanceWidget extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Recharge(wallet: wallet),
+                          builder: (context) => Recharge(user: user),
                         ),
                       );
                     },

@@ -35,7 +35,7 @@ class _SettingsFormState extends State<Settings> {
                     child: Column(
                       children: [
                         ProfileWidget(user: widget.user),
-                        WalletWidget(wallet: widget.wallet),
+                        WalletWidget(user: widget.user),
                       ],
                     ),
                   ),

@@ -40,8 +40,9 @@ class UserWebClient {
 
     if (response.statusCode == 200) {
       return UserRegister.fromJson(jsonDecode(response.body));
-
     }
+
+
     throw Exception('Falha ao atualizar usuário.');
   }
 

@@ -5,13 +5,14 @@ import 'package:rushtowin/components/centered_message.dart';
 import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/transaction.dart';
+import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
 import 'package:rushtowin/screens/wallet/wallet.dart';
 
 class HistoryWidget extends StatelessWidget {
-  final Wallet wallet;
+  final User user;
 
-  HistoryWidget({Key? key, required this.wallet}) : super(key: key);
+  HistoryWidget({Key? key, required this.user}) : super(key: key);
   final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
@@ -22,7 +23,7 @@ class HistoryWidget extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => WalletScreen(wallet: wallet),
+              builder: (context) => WalletScreen(user: user),
             ),
           );
         },
@@ -101,7 +102,7 @@ class HistoryWidget extends StatelessWidget {
                             CrossAxisAlignment.start,
                             children: <Widget>[
                               FutureBuilder<Transaction>(
-                                  future: _webClient.getLastTransaction(wallet.id),
+                                  future: _webClient.getLastTransaction(user.wallet.id),
                                   builder: (context, snapshot) {
                                     switch (snapshot.connectionState) {
                                       case ConnectionState.none:
@@ -161,7 +162,7 @@ class HistoryWidget extends StatelessWidget {
                             CrossAxisAlignment.end,
                             children: <Widget>[
                               FutureBuilder<Transaction>(
-                                  future: _webClient.getLastTransaction(wallet.id),
+                                  future: _webClient.getLastTransaction(user.wallet.id),
                                   builder: (context, snapshot) {
                                     switch (snapshot.connectionState) {
                                       case ConnectionState.none:
