@@ -340,10 +340,10 @@ class CardWidget extends StatelessWidget {
     var result = await _webClient.getWallet(user.walletId);
     if (result.balance >= value) {
       _webClient.subway(user.wallet.id);
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.pop(context, 'Confirmar');
+      return Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              WalletScreen(user: user)));
-      return Navigator.pop(context, 'Confirmar');
+              Dashboard(user: user, title: 'Pagamento efetuado.')));
 
     }
     return Navigator.of(context).push(MaterialPageRoute(
@@ -355,9 +355,14 @@ class CardWidget extends StatelessWidget {
     var result = await _webClient.getWallet(user.walletId);
     if (result.balance >= value) {
       _webClient.train(user.wallet.id);
+      Navigator.pop(context, 'Confirmar');
+      return Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              Dashboard(user: user, title: 'Pagamento efetuado.')));
+
     }
     return Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Dashboard(user: user, title: 'Saldo insuficiente. '),
+      builder: (context) => Dashboard(user: user, title: 'Saldo insuficiente.'),
     ));
   }
 }
