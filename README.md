@@ -5,11 +5,32 @@
 
 #
 
-<img src="./img/pagamento.png" width="30%">
-<img src="./img/Carteira.png" width="30%">
-<img src="./img/recarga.png" width="30%">
+
+<img src="./img/Pagamento.png" width="30%"> <img src="./img/Carteira.png" width="30%"> <img src="./img/Recarga.png" width="30%">
 
 
+#
+#
+
+## Features
+
+1. Usuário
+
+- [x] Cadastro de usuário
+- [x] Login de usuário
+- [x] Atualização de senha
+- [x] Recarga de carteira  
+- [ ] Integração com meios de pagamentos (Pagseguro, Paypal)
+
+
+
+2. Transações
+
+- [x] Exibição do histórico
+- [x] Simulador de pagamentos (Ônibus, Metrô e Trem)
+- [ ] Geração do QR Code para passar na catraca
+
+#
 #
 ## Instruções
 
