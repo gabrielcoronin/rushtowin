@@ -12,12 +12,12 @@ class RushToWinApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+
         primaryColor: const Color.fromRGBO(17, 30, 108, 1),
-        accentColor: Colors.blueAccent[700],
         buttonTheme: ButtonThemeData(
           buttonColor: Colors.blueAccent[700],
           textTheme: ButtonTextTheme.primary,
-        ),
+        ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent[700]),
       ),
       home: const Dashboard(),
     );

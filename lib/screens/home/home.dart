@@ -21,7 +21,8 @@ class _HomeFormState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Material(
+        color: const Color.fromRGBO(12, 21, 74, 1),
         child: Column(
           children: <Widget>[
             Padding(

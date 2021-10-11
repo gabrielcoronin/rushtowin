@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rushtowin/components/centered_message.dart';
-import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/transaction.dart';
 import 'package:rushtowin/models/wallet.dart';
@@ -26,8 +25,7 @@ class Transactions extends StatelessWidget {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
-              return Progress();
-              break;
+              return const CircularProgressIndicator();
             case ConnectionState.active:
               break;
             case ConnectionState.done:
@@ -41,7 +39,7 @@ class Transactions extends StatelessWidget {
                         child: ListTile(
                           leading: const Icon(Icons.monetization_on),
                           title: Text(
-                            "- " + transaction.value.toString(),
+                            "- R\$ " + transaction.value.toString(),
                             style: const TextStyle(
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold,
@@ -64,7 +62,6 @@ class Transactions extends StatelessWidget {
                 'No transactions found',
                 icon: Icons.warning,
               );
-              break;
           }
 
           return CenteredMessage('Unknown error', icon: Icons.warning,);

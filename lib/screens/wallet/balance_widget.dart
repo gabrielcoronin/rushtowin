@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rushtowin/components/centered_message.dart';
-import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/wallet.dart';
@@ -49,7 +48,7 @@ class BalanceWidget extends StatelessWidget {
                                 case ConnectionState.none:
                                   break;
                                 case ConnectionState.waiting:
-                                  return Progress();
+                                  return const CircularProgressIndicator();
                                 case ConnectionState.active:
                                   break;
                                 case ConnectionState.done:

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rushtowin/components/centered_message.dart';
-import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/transaction_webclient.dart';
 import 'package:rushtowin/models/transaction.dart';
 import 'package:rushtowin/models/wallet.dart';
@@ -107,7 +106,7 @@ class HistoryWidget extends StatelessWidget {
                                       case ConnectionState.none:
                                         break;
                                       case ConnectionState.waiting:
-                                        return Progress();
+                                        return const CircularProgressIndicator();
                                       case ConnectionState.active:
                                         break;
                                       case ConnectionState.done:
@@ -168,7 +167,7 @@ class HistoryWidget extends StatelessWidget {
                                       case ConnectionState.none:
                                         break;
                                       case ConnectionState.waiting:
-                                        return Progress();
+                                        return const CircularProgressIndicator();
                                       case ConnectionState.active:
                                         break;
                                       case ConnectionState.done:
@@ -176,7 +175,7 @@ class HistoryWidget extends StatelessWidget {
                                           final Transaction? transaction =
                                               snapshot.data;                                          ;
                                           return Text(
-                                            "- " + transaction!.value.toString(),
+                                            "- R\$ " + transaction!.value.toString(),
                                             style: const TextStyle(
                                               color:
                                               Color.fromRGBO(0, 0, 0, 1),

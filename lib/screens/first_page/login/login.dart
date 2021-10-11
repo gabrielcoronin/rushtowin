@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rushtowin/components/register_message/success/success_message.dart';
 import 'package:rushtowin/http/webclients/user_webclient.dart';
 import 'package:rushtowin/screens/home/home.dart';
 
@@ -72,7 +73,8 @@ class _LoginState extends State<Login> {
                   style: const TextStyle(
                     fontSize: 24.0,
                   ),
-                  keyboardType: TextInputType.number,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
               ),
               Padding(

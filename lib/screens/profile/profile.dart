@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rushtowin/components/centered_message.dart';
-import 'package:rushtowin/components/progress.dart';
 import 'package:rushtowin/http/webclients/user_webclient.dart';
 import 'package:rushtowin/models/update_user.dart';
 import 'package:rushtowin/models/user.dart';
-import 'package:rushtowin/models/user_register.dart';
 import 'package:rushtowin/screens/first_page/dashboard/dashboard.dart';
-import 'package:rushtowin/screens/home/home.dart';
 
 class Profile extends StatefulWidget {
   final User user;
@@ -63,7 +60,7 @@ class _ProfileFormState extends State<Profile> {
                       case ConnectionState.none:
                         break;
                       case ConnectionState.waiting:
-                        return Progress();
+                        return const CircularProgressIndicator();
                       case ConnectionState.active:
                         break;
                       case ConnectionState.done:
@@ -97,7 +94,7 @@ class _ProfileFormState extends State<Profile> {
                         case ConnectionState.none:
                           break;
                         case ConnectionState.waiting:
-                          return Progress();
+                          return const CircularProgressIndicator();
                         case ConnectionState.active:
                           break;
                         case ConnectionState.done:
@@ -132,7 +129,7 @@ class _ProfileFormState extends State<Profile> {
                         case ConnectionState.none:
                           break;
                         case ConnectionState.waiting:
-                          return Progress();
+                          return const CircularProgressIndicator();
                         case ConnectionState.active:
                           break;
                         case ConnectionState.done:
