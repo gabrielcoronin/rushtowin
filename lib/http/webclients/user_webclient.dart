@@ -1,16 +1,16 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:rushtowin/models/update_user.dart';
 import 'package:rushtowin/models/user.dart';
 import 'package:rushtowin/models/user_register.dart';
-import 'package:uuid/uuid.dart';
 
 class UserWebClient {
+  final String host = 'http://192.168.5.185';
+
   Future<User> get(String id) async {
     final response =
-        await http.get(Uri.parse('http://192.168.5.185:8080/api/Users/$id'));
+        await http.get(Uri.parse('$host:9898/api/Users/$id'));
 
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
@@ -20,7 +20,7 @@ class UserWebClient {
 
   Future<User> getByEmail(String email) async {
     final response =
-    await http.get(Uri.parse('http://192.168.5.185:8080/api/Users/getByEmail/$email'));
+    await http.get(Uri.parse('$host:9898/api/Users/getByEmail/$email'));
 
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
@@ -30,7 +30,7 @@ class UserWebClient {
 
   Future<User> login(String email, String password) async {
     final response = await http.get(Uri.parse(
-        'http://192.168.5.185:8080/api/Users/login/$email/$password'));
+        '$host:9898/api/Users/login/$email/$password'));
 
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
@@ -42,7 +42,7 @@ class UserWebClient {
     final String userJson = jsonEncode(user.toJson());
 
     final Response response =
-        await http.post(Uri.parse('http://192.168.5.185:8080/api/Users'),
+        await http.post(Uri.parse('$host:9898/api/Users'),
             headers: {
               'Content-type': 'application/json',
             },
@@ -60,7 +60,7 @@ class UserWebClient {
     final String userJson = jsonEncode(user.toJson());
 
     final Response response = await http.put(
-        Uri.parse('http://192.168.5.185:8080/api/Users/updatePassword'),
+        Uri.parse('$host:9898/api/Users/updatePassword'),
         headers: {
           'Content-type': 'application/json',
         },

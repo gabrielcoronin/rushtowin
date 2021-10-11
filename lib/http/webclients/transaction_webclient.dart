@@ -6,9 +6,12 @@ import 'package:rushtowin/models/transaction.dart';
 import 'package:rushtowin/models/wallet.dart';
 
 class TransactionWebClient {
+
+  final String transactionHost = 'http://192.168.5.185:9898/api/Transactions';
+
   Future<List<Transaction>> list(String walletId) async {
     final response = await http
-        .get(Uri.parse('http://192.168.5.185:8080/api/Transactions/$walletId'));
+        .get(Uri.parse('$transactionHost/$walletId'));
     final List<dynamic> decodedJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return decodedJson
@@ -20,7 +23,7 @@ class TransactionWebClient {
 
   Future<Wallet> getWallet(String walletId) async {
     final response = await http.get(Uri.parse(
-        'http://192.168.5.185:8080/api/Transactions/getWallet/$walletId'));
+        '$transactionHost/getWallet/$walletId'));
 
     if (response.statusCode == 200) {
       return Wallet.fromJson(jsonDecode(response.body));
@@ -30,7 +33,7 @@ class TransactionWebClient {
 
   Future<Transaction> getLastTransaction(String walletId) async {
     final response = await http.get(Uri.parse(
-        'http://192.168.5.185:8080/api/Transactions/lastTransaction/$walletId'));
+        '$transactionHost/lastTransaction/$walletId'));
 
     if (response.statusCode == 200) {
       return Transaction.fromJson(jsonDecode(response.body));
@@ -43,7 +46,7 @@ class TransactionWebClient {
     await Future.delayed(const Duration(seconds: 2));
 
     await http.post(
-        Uri.parse('http://192.168.5.185:8080/api/Transactions/recharge'),
+        Uri.parse('$transactionHost/recharge'),
         headers: {
           'Content-type': 'application/json',
         },
@@ -54,7 +57,7 @@ class TransactionWebClient {
     await Future.delayed(const Duration(seconds: 2));
 
     final Response response = await http.post(
-        Uri.parse('http://192.168.5.185:8080/api/Transactions/bus/$walletId'),
+        Uri.parse('$transactionHost/bus/$walletId'),
         headers: {
           'Content-type': 'application/json',
         });
@@ -70,7 +73,7 @@ class TransactionWebClient {
 
     final Response response = await http.post(
         Uri.parse(
-            'http://192.168.5.185:8080/api/Transactions/subway/$walletId'),
+            '$transactionHost/subway/$walletId'),
         headers: {
           'Content-type': 'application/json',
         });
@@ -85,7 +88,7 @@ class TransactionWebClient {
     await Future.delayed(const Duration(seconds: 2));
 
     final Response response = await http.post(
-        Uri.parse('http://192.168.5.185:8080/api/Transactions/train/$walletId'),
+        Uri.parse('$transactionHost/train/$walletId'),
         headers: {
           'Content-type': 'application/json',
         });
